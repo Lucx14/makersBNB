@@ -1,0 +1,22 @@
+{
+  "name": "makersbnb",
+  "version": "1.0.0",
+  "description": "makersBNB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alastair2D/makersBNB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alastair2D/makersBNB/issues"
+  },
+  "homepage": "https://github.com/Alastair2D/makersBNB#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
