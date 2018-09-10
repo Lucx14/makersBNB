@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Alastair2D/makersBNB.git"
   },
-  "author": "",
+  "author": "Team GoMongoPythonDB",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Alastair2D/makersBNB/issues"
@@ -18,5 +18,9 @@
   "homepage": "https://github.com/Alastair2D/makersBNB#readme",
   "dependencies": {
     "express": "^4.16.3"
-  }
+  },
+  "devDependencies": {},
+  "keywords": [
+    "makers"
+  ]
 }
