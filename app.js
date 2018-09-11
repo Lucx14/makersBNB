@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const MongoClient = require('mongodb').MongoClient
 
 const app = express();
 
@@ -17,6 +18,15 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Establish database connection 
+// Change mongo database path for testing environment
+MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb', { useNewUrlParser: true }, (err, client) => {
+  if (err) return console.log(err)
+  db = client.db('makersbnb') 
+  app.listen(3000, () => {
+    console.log('listening on 3000')
+  })
+})
 
 // creating a dummy object ( i think this is json style notation that we will parse to the browser)
 // This is the kind of thing that we will retrieve from our database
@@ -27,6 +37,7 @@ app.set('views', path.join(__dirname, 'views'));
 // };
 
 //  an example of what out property objects would look like
+
 var properties = [
   {
     id: 1,
@@ -68,16 +79,21 @@ app.get('/homepage', function (req, res) {
 
 // thinking a post route here for the homepage
 app.post('/homepage/add', function(req, res) {
-  var newProperty = {
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-  };
+  // var newProperty = {
+  //   name: req.body.name,
+  //   description: req.body.description,
+  //   price: req.body.price,
+    db.collection('properties').save(req.body, (err, result) => {
+      if (err) return console.log(err)
+      console.log(result)
+      res.redirect('/homepage')
+    })
+  });
 
   // we would need a way to push this new object up to the database
   // and then a redirect to the homepage somehow
-  console.log(newProperty);
-});
+  // console.log(newProperty);
+// });
 
 
 
@@ -102,6 +118,6 @@ app.get('/loginForm', function (req, res) {
 
 
 
-app.listen(3000, function() {
-   console.log('Server started on port 3000!');
-});
+// app.listen(3000, function() {
+//    console.log('Server started on port 3000!');
+// });

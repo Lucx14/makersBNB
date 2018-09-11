@@ -9,6 +9,7 @@
 <body>
 
   <h1>Hello from homepage (ejs rendered view)</h1>
+  <a href='/createListing'><button>Add listing</button></a>
 
 <!--this example is how we could maybe convert json data from the database into the view  -->
   <ul>
@@ -16,7 +17,6 @@
       <li><%= property.name %>, <%= property.description %>: <%= property.price %></li>
     <% }) %>
   </ul>
-
 
 </body>
 </html>
