@@ -34,7 +34,7 @@ app.get('/homepage', function (req, res) {
 app.post('/homepage/add', function(req, res) {
   db.collection('properties').insertOne(req.body, (err, result) => {
     if (err) return console.log(err)
-    res.redirect('/homepage')
+    res.redirect('homepage')
   })
 });
 
@@ -49,10 +49,15 @@ app.get('/makeBooking', function (req, res) {
 app.post('/bookings/add', function(req, res) {
   db.collection('bookings').insertOne(req.body, (err, result) => {
     if (err) return console.log(err)
-    res.redirect('/homepage')
+    res.redirect('homepage')
   })
 });
 
-app.get('/loginForm', function (req, res) {
-  res.render('loginForm');
+app.post('/login', function (req, res) {
+  db.collection('users').insertOne(req.body, (err, result) => {
+    if (err) return console.log(err)
+    res.redirect('homepage')
+  })
+
+
 });
