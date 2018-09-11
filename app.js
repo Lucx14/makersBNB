@@ -46,6 +46,13 @@ app.get('/makeBooking', function (req, res) {
   res.render('makeBooking');
 });
 
+app.post('/bookings/add', function(req, res) {
+  db.collection('book').save(req.body, (err, result) => {
+    if (err) return console.log(err)
+    res.redirect('/homepage')
+  })
+});
+
 app.get('/loginForm', function (req, res) {
   res.render('loginForm');
 });
