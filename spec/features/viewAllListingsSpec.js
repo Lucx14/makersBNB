@@ -19,8 +19,12 @@ describe('View all listings features', function() {
     })
     it('displays Welcome to MakersBNB', function() {
       browser.visit('/', function() {
-        console.log(browser.location.href)
         browser.assert.text('Welcome to MakersBNB');
+      })
+    })
+    it('has a SEARCH button', function() {
+      browser.visit('/', function() {
+        browser.assert.button('Search')
       })
     })
   })
