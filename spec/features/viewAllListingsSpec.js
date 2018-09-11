@@ -41,11 +41,20 @@ describe('View all listings features', function() {
       browser.assert.text('London');
       })
     })
+    it('clicking Add Listing button takes user to /homepage/add', function() { 
+    browser.visit('/homepage', function () {
+      browser.pressButton('Add Listing!', done);
+      browser.assert.success();
+    })
   })
+    it('clicking Book on a property takes you to /makeBooking', function () {
+      browser.visit('/homepage', function () {
+      browser.pressButton('Book', done);
+      browser.assert.page('http://localhost/akeBooking');
+    })
+  })
+})
 
-  describe('/homepage', function() {
-    it('clicking Add Listing button takes user to /homepage/add')
-  })
 
 
 });
