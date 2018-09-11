@@ -38,28 +38,28 @@ MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb
 
 //  an example of what out property objects would look like
 
-var properties = [
-  {
-    id: 1,
-    name: 'London Appartment',
-    description: 'A nice flat in central London',
-    price: '£100 per night'
-  },
+// var properties = [
+//   {
+//     id: 1,
+//     name: 'London Appartment',
+//     description: 'A nice flat in central London',
+//     price: '£100 per night'
+//   },
 
-  {
-    id: 2,
-    name: 'New York Appartment',
-    description: 'A nice flat in central Manhatten',
-    price: '£120 per night'
-  },
+//   {
+//     id: 2,
+//     name: 'New York Appartment',
+//     description: 'A nice flat in central Manhatten',
+//     price: '£120 per night'
+//   },
 
-  {
-    id: 3,
-    name: 'Tokyo Appartment',
-    description: 'A nice flat in central Tokyo',
-    price: '£150 per night'
-  },
-]
+//   {
+//     id: 3,
+//     name: 'Tokyo Appartment',
+//     description: 'A nice flat in central Tokyo',
+//     price: '£150 per night'
+//   },
+// ]
 
 
 
@@ -70,10 +70,11 @@ app.get('/', function (req, res) {    // One-line equivalent syntax: (req, res) 
 
 // parsing a dummy object containing properties through the controller - this will later come from our database
 app.get('/homepage', function (req, res) {
- res.render('homepage', {
-   title: 'Properties',
-   properties: properties
- });
+  db.collection('properties').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    res.render('homepage', {properties: result});
+    console.log(result)
+  })
 });
 
 
