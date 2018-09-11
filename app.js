@@ -4,16 +4,16 @@ const path = require('path');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
 
-// ____ Setup required middleware ____ 
+// ____ Setup required middleware ____
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// ____ Establish database connection ____ 
+// ____ Establish database connection ____
 MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb', { useNewUrlParser: true }, (err, client) => {
   if (err) return console.log(err)
-  db = client.db('makersbnb') 
+  db = client.db('makersbnb')
   app.listen(3000, () => {
     console.log('listening on 3000')
   })
@@ -32,7 +32,7 @@ app.get('/homepage', function (req, res) {
 });
 
 app.post('/homepage/add', function(req, res) {
-  db.collection('properties').save(req.body, (err, result) => {
+  db.collection('properties').insertOne(req.body, (err, result) => {
     if (err) return console.log(err)
     res.redirect('/homepage')
   })
@@ -47,7 +47,7 @@ app.get('/makeBooking', function (req, res) {
 });
 
 app.post('/bookings/add', function(req, res) {
-  db.collection('book').save(req.body, (err, result) => {
+  db.collection('bookings').insertOne(req.body, (err, result) => {
     if (err) return console.log(err)
     res.redirect('/homepage')
   })
