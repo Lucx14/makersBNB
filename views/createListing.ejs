@@ -1,34 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>MBnB: Create Listing</title>
-</head>
-<body>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MBnB: Create Listing</title>
+  </head>
 
-  <h1>Hello from create listing (ejs rendered view!)</h1>
+  <body>
+    <h1>Create a new listing</h1>
+    <h2>Add a property</h2>
 
-
-  <h1>Create a new listing</h1>
-
-  <h2>Add a property</h2>
-
-
-<!-- for validation think about using express validator maybe?? -->
-  <form action="/homepage/add" method="POST">
-    <label>Name</label><br>
-    <input type="text" name="name">
-    <br>
-    <label>Desciption</label><br>
-    <input type="text" name="description">
-    <br>
-    <label>Price</label><br>
-    <input type="text" name="price">
-    <br><br>
-    <input type="submit" value="Submit">
-  </form>
-
-</body>
+    <form action="/homepage/add" method="POST">
+      <label>Name</label><br>
+      <input type="text" name="name"><br>
+      <label>Desciption</label><br>
+      <input type="text" name="description"><br>
+      <label>Price</label><br>
+      <input type="text" name="price"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+    
+  </body>
 </html>

@@ -1,27 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>MBnb: Homepage</title>
-</head>
-<body>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MBnb: Homepage</title>
+  </head>
 
-  <h1>Hello from homepage (ejs rendered view)</h1>
-  <a href='/createListing'><button>Add listing</button></a>
+  <body>
 
-<!--this example is how we could maybe convert json data from the database into the view  -->
-  <ul>
-    <% properties.forEach(function(property) { %>
-      <li><%= property.name %>, <%= property.description %>: <%= property.price %></li>
-      
-      <a href='/makeBooking'>
-        <button>Book</button>
-      </a>
+    <h1>Hello from homepage (ejs rendered view)</h1>
+    <a href='/createListing'><button>Add listing</button></a>
 
-    <% }) %>
-  </ul>
+    <ul>
+      <% properties.forEach(function(property) { %>
+        <li><%= property.name %>, <%= property.description %>: <%= property.price %></li>
+        <a href='/makeBooking'><button>Book</button></a>
+      <% }) %>
+    </ul>
 
-</body>
+  </body>
 </html>
