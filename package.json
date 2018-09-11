@@ -19,7 +19,7 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "jasmine-node": "^1.16.2",
+    "jasmine-node": "^2.0.1",
     "mongodb": "^3.1.4"
   },
   "devDependencies": {
