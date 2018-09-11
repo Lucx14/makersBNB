@@ -42,7 +42,7 @@ describe('View all listings features', function() {
       })
     })
     it('clicking Add Listing button takes user to /homepage/add', function() { 
-    browser.visit('/homepage', function () {
+      browser.visit('/homepage', function () {
       browser.pressButton('Add Listing!', done);
       browser.assert.page('http://localhost:3000/homepage/add'); 
     })
@@ -55,6 +55,21 @@ describe('View all listings features', function() {
     })
   })
 })
+
+  describe('/createListing', function () {
+    it('displays correct header', function () {
+      browser.visit('/homepage', function () {
+      browser.pressButton('Add Listing!', done);
+        browser.assert.text('Add a property')
+      })
+    })
+    it('displays the form', function () {
+      browser.visit('/createListing', function () {
+        
+    })
+  })
+
+
 
 
 });
