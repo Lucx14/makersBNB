@@ -27,6 +27,12 @@ describe('View all listings features', function() {
         browser.assert.button('Search')
       })
     })
+    it('clicking Search button takes user to /homepage', function() {
+      browser.visit('/', function() {
+      browser.pressButton('Search!', done);
+      browser.assert.success();
+      })
+    })
   })
 
   describe('/homepage', function() {
@@ -38,7 +44,7 @@ describe('View all listings features', function() {
   })
 
   describe('/homepage', function() {
-    it('takes you to /homepage/add')
+    it('clicking Add Listing button takes user to /homepage/add')
   })
 
 
