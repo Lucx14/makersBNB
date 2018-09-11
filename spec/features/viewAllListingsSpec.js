@@ -44,17 +44,17 @@ describe('View all listings features', function() {
     it('clicking Add Listing button takes user to /homepage/add', function() { 
     browser.visit('/homepage', function () {
       browser.pressButton('Add Listing!', done);
-      browser.assert.success();
+      browser.assert.page('http://localhost:3000/homepage/add'); 
     })
   })
     it('clicking Book on a property takes you to /makeBooking', function () {
       browser.visit('/homepage', function () {
       browser.pressButton('Book', done);
-      browser.assert.page('http://localhost/akeBooking');
+      // browser.assert.page('http://localhost:3000/makeBooking');
+      browser.assert.url({ pathname: 'http://localhost:3000/makeBooking' });
     })
   })
 })
-
 
 
 });
