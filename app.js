@@ -4,6 +4,28 @@ const path = require('path');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
 
+//____Trying to set up Authentication with Mongoose___
+const mongoose = require('mongoose')
+var UserSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: true,
+  }
+  // passwordConf: {
+  //   type: String,
+  //   required: true,
+  // }
+});
+var User = mongoose.model('User', UserSchema);
+module.exports = User;
+
+
 // ____ Setup required middleware ____
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -38,23 +60,28 @@ app.post('/signUp', function (req, res) {
 });
 
 
-
 app.get('/logIn', function(req, res) {
   res.render('loginForm');
 });
 
-
 app.post('/logIn', function (req, res) {
   // this logic to be refactored to check (using passport??) that user details match an existing user!
   // connect to darabase and check the email address (and password) provided matches with a registered user
-  db.collection('users').insertOne(req.body, (err, result) => {
-    if (err) return console.log(err)
-    res.redirect('/homepage');
-  });
+  if (req.body.email && req.body.password) {
+    var UserData = {
+      email: req.body.email,
+      password: req.body.password
+    }
+  }   
+    User.create(userData, function (err, user) {
+      if (err) {
+        return next(err)
+      } else {
+        return res.redirect('/homepage');
+        }
+      })
+
 });
-
-
-
 
 
 
