@@ -24,6 +24,10 @@ app.get('/', function (req, res) {    // One-line equivalent syntax: (req, res) 
   res.render('index')
 });
 
+app.get('/signup', function (req, res) {
+  res.render('signUp');
+});
+
 app.get('/homepage', function (req, res) {
   db.collection('properties').find().toArray((err, result) => {
     if (err) return console.log(err)
