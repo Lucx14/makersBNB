@@ -7,10 +7,25 @@
     <title>MBnb: Welcome</title>
   </head>
 
-  <body style='text-align: center; padding-top: 400px'>
+  <body style='text-align: center; padding-top: 300px'>
     <h1>Welcome to MakersBNB!</h1>
     <h2>We hope your enjoy your stay</h2>
-    <h5>Click below to view available properties</h5>
-    <a href="/homepage"><button>Search</button></a>
+    <h5>Please log in/sign up below to view available properties</h5>
+
+
+    <button>Log in</button>
+    <button>Sign up</button>
+
+
+    <form action="/login" method="POST">
+      <label>Email Address</label><br>
+      <input type="text" name="name"><br>
+      <label>Password</label><br>
+      <input type="text" name="description"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+
+
+    <!-- <a href="/homepage"><button>Search</button></a> -->
   </body>
 </html>

@@ -1,55 +1,67 @@
- makersBnB
+##GoPythonBnB
+
+###Dev team
 
 
-We would like a web application that allows users to list spaces they have available, and to hire spaces for the night.
+[Alistair Edmonds](https://github.com/Alastair2D)
 
-Headline specifications
+[Aneel Marshall](https://github.com/marshall159)
 
-Any signed-up user can list a new space.
+[Josh Nickson](https://github.com/joshnickson)
+
+[Lucien Najev](https://github.com/Lucx14)
+
+
+### As a team we have created this project in 1 week using technologies that were all brand new to us, we had no experience of Express, Node.js or MongoDB and so this was a good test of the teams ability to learn and implement new technologies very quickly. We followed a Test and behaviour driven Agile workflow, programming in pairs and holding regular stand ups and retros every day.
+
+
+###GoPythonBNB uses the following **technologies**:
+
+* Javascript
+* node.js
+* Express
+* MongoDB
+* Jasmine
+* Zombie
+
+### How to download and run GoPythonBnB locally:
+
+```
+
+```
+
+
+We created a web application that allows users to list spaces they have available, and to hire spaces for the night.
+
+### User Stories - Headline specifications
 
 ```
 as a user,
-so i can list my property,
-i want to be able to add my property to the list.
+so i can use the service,
+I want to be able to sign up to the website.
 
 as a user,
-so i can use the website,
-I want to be able to log in with an email and password.
+so I can use the website,
+I want to be able to log in with an email address and password
 
-as a user,
-so i can hire a space,
-i want to be able to select a listed property to hire.
+As a user,
+I want to be able to list multiple properties.
 
-as a user,
-so i know if i can book a place,
-I want to be able to see if a place is available
+As a user,
+I should be able to offer a range of dates where my space is available.
+
+As a signed up user,
+I should be able to request to hire a space for one night.
+
+As a user,
+I should be able to approve a request from another user to hire my space.
+
+As a user,
+I should not be able to book a space for a date
+if the space is already booked(confirmed) for that date by another user.
+
+As a user,
+I can receive multiple booking requests for the same date
+from different users until I confirm a booking.
 
 ```
-
-
-
-Users can list multiple spaces.
-Users should be able to name their space, provide a short description of the space, and a price per night.
-Users should be able to offer a range of dates where their space is available.
-Any signed-up user can request to hire any space for one night, and this should be approved by the user that owns that space.
-Nights for which a space has already been booked should not be available for users to book that space.
-Until a user has confirmed a booking request, that space can still be booked for that night.
-
-
-Nice-to-haves
-
-Users should receive an email whenever one of the following happens:
-They sign up
-They create a space
-They update a space
-A user requests to book their space
-They confirm a request
-They request to book a space
-Their request to book a space is confirmed
-Their request to book a space is denied
-Users should receive a text message to a provided number whenever one of the following happens:
-A user requests to book their space
-Their request to book a space is confirmed
-Their request to book a space is denied
-A ‘chat’ functionality once a space has been booked, allowing users whose space-booking request has been confirmed to chat with the user that owns that space
-Basic payment implementation though Stripe.
