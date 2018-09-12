@@ -18,7 +18,7 @@ var UserSchema = new mongoose.Schema({
     required: true,
   }
   // passwordConf: {
-  //   type: String,
+  //   type: String,add
   //   required: true,
   // }
 });
@@ -57,7 +57,7 @@ app.get('/signup', function (req, res) {
 app.post('/signUp', function (req, res) {
   db.collection('users').insertOne(req.body, (err, result) => {
     if (err) return console.log(err)
-    res.redirect('/homepage');
+    res.redirect('/login');
   });
 });
 
@@ -78,7 +78,8 @@ app.post('/logIn', function (req, res) {
   }   
     User.create(userData, function (err, user) {
       if (err) {
-        return console.log(err)
+        console.log(err)
+        
       } else {
         return res.redirect('/homepage');
         }
