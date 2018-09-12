@@ -8,9 +8,17 @@
 </head>
 <body>
 
-  <h1>Hello from login form (rendered by ejs!)</h1>
-  <!-- <h2>Please log in/sign up:</h2>
-  <form action="/homepage", method="POST">
-  </form> -->
+
+  <h1>Log in Form</h1>
+  <h2>Please log in</h2>
+
+
+  <form action="/logIn", method="POST">
+    <label>Email Address</label><br>
+    <input type='text' name='email_address'><br>
+    <label>Password</label><br>
+    <input type='text' name='password'><br>
+    <input type="submit" value="Submit">
+  </form>
 </body>
 </html>

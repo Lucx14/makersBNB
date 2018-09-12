@@ -24,9 +24,40 @@ app.get('/', function (req, res) {    // One-line equivalent syntax: (req, res) 
   res.render('index')
 });
 
+
+
 app.get('/signup', function (req, res) {
-  res.render('signUp');
+ res.render('signUp');
 });
+
+app.post('/signUp', function (req, res) {
+  db.collection('users').insertOne(req.body, (err, result) => {
+    if (err) return console.log(err)
+    res.redirect('/homepage');
+  });
+});
+
+
+
+app.get('/logIn', function(req, res) {
+  res.render('loginForm');
+});
+
+
+app.post('/logIn', function (req, res) {
+  // this logic to be refactored to check (using passport??) that user details match an existing user!
+  // connect to darabase and check the email address (and password) provided matches with a registered user
+  db.collection('users').insertOne(req.body, (err, result) => {
+    if (err) return console.log(err)
+    res.redirect('/homepage');
+  });
+});
+
+
+
+
+
+
 
 app.get('/homepage', function (req, res) {
   db.collection('properties').find().toArray((err, result) => {
@@ -55,13 +86,4 @@ app.post('/bookings/add', function(req, res) {
     if (err) return console.log(err)
     res.redirect('/homepage');
   });
-});
-
-app.post('/login', function (req, res) {
-  db.collection('users').insertOne(req.body, (err, result) => {
-    if (err) return console.log(err)
-    res.redirect('/homepage');
-  });
-
-
 });
