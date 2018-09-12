@@ -25,7 +25,6 @@ var UserSchema = new mongoose.Schema({
 var User = mongoose.model('User', UserSchema);
 module.exports = User;
 
-
 // ____ Setup required middleware ____
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -40,6 +39,9 @@ MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb
     console.log('listening on 3000')
   })
 })
+
+// ____ Establish database connection using mongoose____
+mongoose.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb');
 
 //__________ R O U T E S __________
 app.get('/', function (req, res) {    // One-line equivalent syntax: (req, res) => res.send('Hello World!'))
@@ -68,14 +70,15 @@ app.post('/logIn', function (req, res) {
   // this logic to be refactored to check (using passport??) that user details match an existing user!
   // connect to darabase and check the email address (and password) provided matches with a registered user
   if (req.body.email && req.body.password) {
-    var UserData = {
+    
+    var userData = {
       email: req.body.email,
       password: req.body.password
     }
   }   
     User.create(userData, function (err, user) {
       if (err) {
-        return next(err)
+        return console.log(err)
       } else {
         return res.redirect('/homepage');
         }
