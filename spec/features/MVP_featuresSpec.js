@@ -57,7 +57,7 @@ describe('View all listings features', function() {
 })
 
   describe('/createListing', function () {
-    it('displays correct header', function () {
+    it('displays correct h4 header', function () {
       browser.visit('/homepage', function () {
       browser.pressButton('Add Listing!', done);
         browser.assert.text('Add a property')
@@ -65,10 +65,15 @@ describe('View all listings features', function() {
     })
     it('displays the form', function () {
       browser.visit('/createListing', function () {
+        browser
+          .fill('Name', 'Johnny English')
+          .fill('Description', 'Lush spy pad with secret weapons')
+          .fill('Price', '£1')
+          .pressButton('Submit', done)
+            browser.assert.page('http://localhost:3000/homepage');
       })   
     })
   })
-
 
 
 
