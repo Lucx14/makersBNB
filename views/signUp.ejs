@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sign-Up</title>
+</head>
+
+
+<body>
+
+  <h3>New user sign up.</h3>
+  <h5>Please enter your details below.</h5>
+
+    <form action="/signUp" method="POST">
+      <label>First Name</label><br>
+      <input type='text' name='forename'><br>
+      <label>Last Name</label><br>
+      <input type='text' name='surname'><br>
+      <label>E-mail</label><br>
+      <input type='text' name='email_address'><br>
+      <label>Password</label><br>
+      <input type='text' name='password'><br>
+      <input type="submit" value="Submit">
+  </form>
+
+</body>
+
+</html>
+
+
+
+
+<!-- app.post('/signUp', function (req, res) {
+  db.collection('users').insertOne(req.body, (err, result) => {
+    if (err) return console.log(err)
+    res.redirect('/homepage');
+  }); -->
