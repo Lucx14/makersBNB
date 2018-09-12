@@ -65,7 +65,7 @@ describe('View all listings features', function() {
     })
     it('displays the form', function () {
       browser.visit('/createListing', function () {
-        
+      })   
     })
   })
 
