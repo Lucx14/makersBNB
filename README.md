@@ -3,7 +3,7 @@
 ###Dev team
 
 
-[Alistair Edmonds](https://github.com/Alastair2D)
+[Alastair Edmonds](https://github.com/Alastair2D)
 
 [Aneel Marshall](https://github.com/marshall159)
 
