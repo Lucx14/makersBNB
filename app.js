@@ -4,15 +4,14 @@ const path = require('path');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
 const bcrypt = require('bcrypt');
+const session = require('express-session')
 
-
-//____Trying to set up Authentication with Mongoose___
+//____Authentication with Mongoose___
 const mongoose = require('mongoose')
 
 var UserSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true, trim: true },
   password: { type: String, required: true }
-  
 });
 
 UserSchema.pre('save', function (next) {
@@ -29,13 +28,20 @@ UserSchema.pre('save', function (next) {
 var User = mongoose.model('User', UserSchema);
 module.exports = User;
 
-// ____ Setup required middleware ____
+// _______ MIDDLEWARE _______
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// ____ Establish database connection ____
+//use sessions for tracking logins
+app.use(session({
+  secret: 'work hard',
+  resave: true,
+  saveUninitialized: false
+}));
+
+// ____ Establish MongoDB connection ____
 MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb', { useNewUrlParser: true }, (err, client) => {
   if (err) return console.log(err)
   db = client.db('makersbnb')
@@ -44,7 +50,7 @@ MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb
   })
 })
 
-// ____ Establish database connection using mongoose____
+// ____ Establish Mongoose database connection ____
 mongoose.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb');
 
 //__________ R O U T E S __________
@@ -57,14 +63,24 @@ app.get('/signup', function (req, res) {
 });
 
 app.post('/signUp', function (req, res) {
-  db.collection('users').insertOne(req.body, (err, result) => {
-    if (err) return console.log(err)
-    res.redirect('/login');
-  });
-});
-
-app.get('/logIn', function(req, res) {
-  res.render('loginForm');
+  if (req.body.email && req.body.password) {
+    var userData = {
+      email: req.body.email,
+      password: req.body.password
+    }
+  }   
+  User.create(userData, function (err, user) {
+    if (err) {
+      return console.log(err)
+    } else {
+      console.log(userData)
+      return res.redirect('/homepage');
+    }
+  })
+  // db.collection('users').insertOne(req.body, (err, result) => {
+  //   if (err) return console.log(err)
+  //   res.redirect('/login');
+  // });
 });
 
 app.post('/logIn', function (req, res) {
@@ -82,6 +98,10 @@ app.post('/logIn', function (req, res) {
       return res.redirect('/homepage');
     }
   })
+});
+
+app.get('/logIn', function(req, res) {
+  res.render('loginForm');
 });
 
 app.get('/homepage', function (req, res) {
