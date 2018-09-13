@@ -109,6 +109,8 @@ app.post('/signUp', function (req, res) {
 
 // UserSchema.statics.authenticate = function (email, password, callback) {
 
+
+// Remove console.logs - they are just in there for visiblity but make it PHAT
 app.post('/logIn', function (req, res) {
   if (req.body.email && req.body.password) {
     console.log(User.email)
@@ -139,7 +141,7 @@ app.get('/logIn', function(req, res) {
 app.get('/homepage', function (req, res) {
   db.collection('properties').find().toArray((err, result) => {
     if (err) return console.log(err)
-    res.render('homepage', {properties: result, username: res.locals.user_name});
+    res.render('homepage', {properties: result});
   });
 });
 
