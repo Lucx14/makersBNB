@@ -107,19 +107,18 @@ app.post('/signUp', function (req, res) {
 
 app.post('/logIn', function (req, res) {
   if (req.body.email && req.body.password) {
-    var userData = {
-      email: req.body.email,
-      password: req.body.password
-    }
-  }   
-  User.create(userData, function (err, user) {
-    if (err) {
-      return console.log(err)
-    } else {
-      console.log(userData)
-      return res.redirect('/homepage');
-    }
-  })
+    User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
+      if (error || !user) {
+          var err = new Error('Wrong email or password.');
+          err.status = 401;
+          return next(err);
+      } else {
+          req.session.userId = user._id;
+          console.log(req.session.userId)
+          return res.redirect('/homepage');
+      }
+    })
+  }
 });
 
 app.get('/logIn', function(req, res) {
