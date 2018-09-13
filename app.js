@@ -9,10 +9,14 @@ const session = require('express-session')
 //____Authentication with Mongoose___
 const mongoose = require('mongoose')
 
+// _______USER SCHEMA _______
 var UserSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true, trim: true },
   password: { type: String, required: true }
 });
+
+var User = mongoose.model('User', UserSchema);
+module.exports = User;
 
 UserSchema.pre('save', function (next) {
   var user = this;
@@ -25,8 +29,26 @@ UserSchema.pre('save', function (next) {
   })
 });
 
-var User = mongoose.model('User', UserSchema);
-module.exports = User;
+//_______Authenticate input against database_______
+UserSchema.statics.authenticate = function (email, password, callback) {
+  User.findOne({ email: email })
+    .exec(function (err, user) {
+      if (err) {
+        return callback(err)
+      } else if (!user) {
+        var err = new Error('User not found.');
+        err.status = 401;
+        return callback(err);
+      }
+      bcrypt.compare(password, user.password, function (err, result) {
+        if (result === true) {
+          return callback(null, user);
+        } else {
+          return callback();
+        }
+      })
+    });
+}
 
 // _______ MIDDLEWARE _______
 app.use(bodyParser.json());
@@ -50,6 +72,8 @@ MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb
   })
 })
 
+// useNewUrlParser: true
+
 // ____ Establish Mongoose database connection ____
 mongoose.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb');
 
@@ -71,10 +95,10 @@ app.post('/signUp', function (req, res) {
   }   
   User.create(userData, function (err, user) {
     if (err) {
-      return console.log(err)
+      console.log(err)
     } else {
       console.log(userData)
-      return res.redirect('/homepage');
+      return res.redirect('/login');
     }
   })
   // db.collection('users').insertOne(req.body, (err, result) => {
@@ -83,21 +107,31 @@ app.post('/signUp', function (req, res) {
   // });
 });
 
+// UserSchema.statics.authenticate = function (email, password, callback) {
+
+
+// Remove console.logs - they are just in there for visiblity but make it PHAT
 app.post('/logIn', function (req, res) {
   if (req.body.email && req.body.password) {
-    var userData = {
-      email: req.body.email,
-      password: req.body.password
-    }
-  }   
-  User.create(userData, function (err, user) {
-    if (err) {
-      return console.log(err)
-    } else {
-      console.log(userData)
-      return res.redirect('/homepage');
-    }
-  })
+    console.log(User.email)
+    console.log(req.body.email)
+    UserSchema.statics.authenticate(req.body.email, req.body.password, function (error, user) {
+      if (error || !user) {
+          var err = new Error('Wrong email or password.');
+          err.status = 401;
+          // return next(err);
+          return console.log(err)
+      } else {
+          req.session.userId = user.email;
+          console.log(req.session.userId)
+          console.log('is this working > IT IS BLOODY WORKING')
+          res.locals.user_name = req.session.userId
+          // var localUserName = res.locals.user_name
+          console.log(res.locals.user_name)
+          return res.redirect('/homepage');
+      }
+    })
+  }
 });
 
 app.get('/logIn', function(req, res) {
