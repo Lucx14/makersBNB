@@ -16,10 +16,10 @@ var UserSchema = new mongoose.Schema({
 });
 
 var ListingSchema = new mongoose.Schema({
-  name: { type: String, unique: true, required: true},
+  name: { type: String, required: true},
   description: { type: String, required: true },
   price: { type: Number, required: true },
-  ownerId: { type: Number, required: false }
+  hostId: String
 });
 
 var User = mongoose.model('User', UserSchema);
@@ -138,7 +138,7 @@ app.post('/homepage/add', function(req, res) {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
-      ownerID: userId
+      hostId: userId
     }
     console.log('LISTING DATA')
     console.log(listingData)
