@@ -120,9 +120,11 @@ app.post('/logIn', function (req, res) {
           // return next(err);
           return console.log(err)
       } else {
-          req.session.userId = user._id;
+          req.session.userId = user.email;
           console.log(req.session.userId)
           console.log('is this working')
+          res.locals.user_name = req.session.userId
+          console.log(res.locals.user_name)
           return res.redirect('/homepage');
       }
     })

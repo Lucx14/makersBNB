@@ -10,8 +10,9 @@
   <body>
 
     <h1>Homepage</h1>
-    <a href='/createListing'><button>Add listing</button></a>
 
+    <a href='/createListing'><button>Add listing</button></a>
+    
     <ul>
       <% properties.forEach(function(property) { %>
         <li><%= property.name %>, <%= property.description %>: <%= property.price %></li>
