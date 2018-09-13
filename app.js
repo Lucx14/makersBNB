@@ -6,6 +6,9 @@ const app = express();
 const bcrypt = require('bcrypt');
 const session = require('express-session')
 
+//______Tell Controller how to apply CSS files______
+app.use(express.static('public'))
+
 //____Authentication with Mongoose___
 const mongoose = require('mongoose')
 
