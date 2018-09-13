@@ -72,6 +72,8 @@ MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb
   })
 })
 
+// useNewUrlParser: true
+
 // ____ Establish Mongoose database connection ____
 mongoose.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb');
 
@@ -93,7 +95,7 @@ app.post('/signUp', function (req, res) {
   }   
   User.create(userData, function (err, user) {
     if (err) {
-      return console.log(err)
+      console.log(err)
     } else {
       console.log(userData)
       return res.redirect('/homepage');
@@ -105,9 +107,13 @@ app.post('/signUp', function (req, res) {
   // });
 });
 
+// UserSchema.statics.authenticate = function (email, password, callback) {
+
 app.post('/logIn', function (req, res) {
   if (req.body.email && req.body.password) {
-    User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
+    console.log(User.email)
+    console.log(req.body.email)
+    UserSchema.statics.authenticate(req.body.email, req.body.password, function (error, user) {
       if (error || !user) {
           var err = new Error('Wrong email or password.');
           err.status = 401;
@@ -115,11 +121,32 @@ app.post('/logIn', function (req, res) {
       } else {
           req.session.userId = user._id;
           console.log(req.session.userId)
+          console.log('is this working')
           return res.redirect('/homepage');
       }
     })
   }
 });
+
+// UserSchema.statics.authenticate = function (email, password, callback) {
+//   User.findOne({ email: email })
+//     .exec(function (err, user) {
+//       if (err) {
+//         return callback(err)
+//       } else if (!user) {
+//         var err = new Error('User not found.');
+//         err.status = 401;
+//         return callback(err);
+//       }
+//       bcrypt.compare(password, user.password, function (err, result) {
+//         if (result === true) {
+//           return callback(null, user);
+//         } else {
+//           return callback();
+//         }
+//       })
+//     });
+// }
 
 app.get('/logIn', function(req, res) {
   res.render('loginForm');
