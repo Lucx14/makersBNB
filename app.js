@@ -122,34 +122,15 @@ app.post('/logIn', function (req, res) {
       } else {
           req.session.userId = user.email;
           console.log(req.session.userId)
-          console.log('is this working')
+          console.log('is this working > IT IS BLOODY WORKING')
           res.locals.user_name = req.session.userId
+          // var localUserName = res.locals.user_name
           console.log(res.locals.user_name)
           return res.redirect('/homepage');
       }
     })
   }
 });
-
-// UserSchema.statics.authenticate = function (email, password, callback) {
-//   User.findOne({ email: email })
-//     .exec(function (err, user) {
-//       if (err) {
-//         return callback(err)
-//       } else if (!user) {
-//         var err = new Error('User not found.');
-//         err.status = 401;
-//         return callback(err);
-//       }
-//       bcrypt.compare(password, user.password, function (err, result) {
-//         if (result === true) {
-//           return callback(null, user);
-//         } else {
-//           return callback();
-//         }
-//       })
-//     });
-// }
 
 app.get('/logIn', function(req, res) {
   res.render('loginForm');
@@ -158,7 +139,7 @@ app.get('/logIn', function(req, res) {
 app.get('/homepage', function (req, res) {
   db.collection('properties').find().toArray((err, result) => {
     if (err) return console.log(err)
-    res.render('homepage', {properties: result});
+    res.render('homepage', {properties: result, username: res.locals.user_name});
   });
 });
 

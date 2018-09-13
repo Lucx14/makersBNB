@@ -12,7 +12,9 @@
     <h1>Homepage</h1>
 
     <a href='/createListing'><button>Add listing</button></a>
-    
+
+   <h3> Congratulations USERNAME <%= username %> you have successfully logged in. This means that the email and password you entered on teh login page successfully matched with the records we hold for you in the Users collection of our DataBase </h3>
+
     <ul>
       <% properties.forEach(function(property) { %>
         <li><%= property.name %>, <%= property.description %>: <%= property.price %></li>
