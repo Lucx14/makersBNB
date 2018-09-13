@@ -3,25 +3,29 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
+const bcrypt = require('bcrypt');
+
 
 //____Trying to set up Authentication with Mongoose___
 const mongoose = require('mongoose')
+
 var UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    trim: true
-  },
-  password: {
-    type: String,
-    required: true,
-  }
-  // passwordConf: {
-  //   type: String,add
-  //   required: true,
-  // }
+  email: { type: String, unique: true, required: true, trim: true },
+  password: { type: String, required: true }
+  
 });
+
+UserSchema.pre('save', function (next) {
+  var user = this;
+  bcrypt.hash(user.password, 10, function (err, hash){
+    if (err) {
+      return next(err);
+    }
+    user.password = hash;
+    next();
+  })
+});
+
 var User = mongoose.model('User', UserSchema);
 module.exports = User;
 
@@ -48,8 +52,6 @@ app.get('/', function (req, res) {    // One-line equivalent syntax: (req, res) 
   res.render('index')
 });
 
-
-
 app.get('/signup', function (req, res) {
  res.render('signUp');
 });
@@ -61,34 +63,26 @@ app.post('/signUp', function (req, res) {
   });
 });
 
-
 app.get('/logIn', function(req, res) {
   res.render('loginForm');
 });
 
 app.post('/logIn', function (req, res) {
-  // this logic to be refactored to check (using passport??) that user details match an existing user!
-  // connect to darabase and check the email address (and password) provided matches with a registered user
   if (req.body.email && req.body.password) {
-    
     var userData = {
       email: req.body.email,
       password: req.body.password
     }
   }   
-    User.create(userData, function (err, user) {
-      if (err) {
-        console.log(err)
-        
-      } else {
-        return res.redirect('/homepage');
-        }
-      })
-
+  User.create(userData, function (err, user) {
+    if (err) {
+      return console.log(err)
+    } else {
+      console.log(userData)
+      return res.redirect('/homepage');
+    }
+  })
 });
-
-
-
 
 app.get('/homepage', function (req, res) {
   db.collection('properties').find().toArray((err, result) => {
