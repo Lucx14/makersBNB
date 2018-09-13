@@ -11,19 +11,27 @@ const mongoose = require('mongoose')
 
 // _______USER SCHEMA _______
 var UserSchema = new mongoose.Schema({
-  email: { type: String, unique: true, required: true, trim: true },
+  email: { type: String, unique: true, required: true },
   password: { type: String, required: true }
 });
 
+var ListingSchema = new mongoose.Schema({
+  name: { type: String, unique: true, required: true},
+  description: { type: String, required: true },
+  price: { type: Number, required: true },
+  ownerId: { type: Number, required: false }
+});
+
 var User = mongoose.model('User', UserSchema);
+var Listing = mongoose.model('Listing', ListingSchema);
+
 module.exports = User;
+module.exports = Listing;
 
 UserSchema.pre('save', function (next) {
   var user = this;
   bcrypt.hash(user.password, 10, function (err, hash){
-    if (err) {
-      return next(err);
-    }
+    if (err) { return next(err); }
     user.password = hash;
     next();
   })
@@ -64,7 +72,8 @@ app.use(session({
 }));
 
 // ____ Establish MongoDB connection ____
-MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb', { useNewUrlParser: true }, (err, client) => {
+var mLabDatabase = 'mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb'
+MongoClient.connect(mLabDatabase, { useNewUrlParser: true }, (err, client) => {
   if (err) return console.log(err)
   db = client.db('makersbnb')
   app.listen(3000, () => {
@@ -72,18 +81,22 @@ MongoClient.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb
   })
 })
 
-// useNewUrlParser: true
-
 // ____ Establish Mongoose database connection ____
-mongoose.connect('mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb');
+mongoose.connect(mLabDatabase);
 
 //__________ R O U T E S __________
-app.get('/', function (req, res) {    // One-line equivalent syntax: (req, res) => res.send('Hello World!'))
-  res.render('index')
-});
+// One-line equivalent syntax: (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.render('index'));
+app.get('/signup', (req, res) => res.render('signUp'));
+app.get('/logIn', (req, res) => res.render('loginForm'));
+app.get('/makeBooking', (req, res) => res.render('makeBooking'));
+app.get('/createListing', (req, res) => res.render('createListing'));
 
-app.get('/signup', function (req, res) {
- res.render('signUp');
+app.get('/homepage', function (req, res) {
+  db.collection('properties').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    res.render('homepage', {properties: result});
+  });
 });
 
 app.post('/signUp', function (req, res) {
@@ -94,70 +107,50 @@ app.post('/signUp', function (req, res) {
     }
   }   
   User.create(userData, function (err, user) {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log(userData)
-      return res.redirect('/login');
-    }
-  })
-  // db.collection('users').insertOne(req.body, (err, result) => {
-  //   if (err) return console.log(err)
-  //   res.redirect('/login');
-  // });
+    if (err) { return console.log(err) }
+    console.log(userData)
+    return res.redirect('/login');
+  });
 });
 
-// UserSchema.statics.authenticate = function (email, password, callback) {
-
-
-// Remove console.logs - they are just in there for visiblity but make it PHAT
 app.post('/logIn', function (req, res) {
   if (req.body.email && req.body.password) {
-    console.log(User.email)
-    console.log(req.body.email)
     UserSchema.statics.authenticate(req.body.email, req.body.password, function (error, user) {
       if (error || !user) {
-          var err = new Error('Wrong email or password.');
-          err.status = 401;
-          // return next(err);
-          return console.log(err)
+        var err = new Error('Wrong email or password.');
+        err.status = 401;
+        return console.log(err)
       } else {
-          req.session.userId = user.email;
-          console.log(req.session.userId)
-          console.log('is this working > IT IS BLOODY WORKING')
-          res.locals.user_name = req.session.userId
-          // var localUserName = res.locals.user_name
-          console.log(res.locals.user_name)
-          return res.redirect('/homepage');
+        var sessionData = req.session;
+        sessionData.userId = user._id;
+        return res.redirect('/homepage');
       }
     })
   }
-});
-
-app.get('/logIn', function(req, res) {
-  res.render('loginForm');
-});
-
-app.get('/homepage', function (req, res) {
-  db.collection('properties').find().toArray((err, result) => {
-    if (err) return console.log(err)
-    res.render('homepage', {properties: result});
-  });
+  console.log(req.session.userId)
 });
 
 app.post('/homepage/add', function(req, res) {
-  db.collection('properties').insertOne(req.body, (err, result) => {
-    if (err) return console.log(err)
-    res.redirect('/homepage');
-  });
-});
-
-app.get('/createListing', function (req, res) {
-  res.render('createListing');
-});
-
-app.get('/makeBooking', function (req, res) {
-  res.render('makeBooking');
+  var userId = req.session.userId;
+  console.log('user id' + userId)
+  if (req.body.name && req.body.description && req.body.price ) {
+    var listingData = {
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      ownerID: userId
+    }
+    console.log('LISTING DATA')
+    console.log(listingData)
+  }   
+  Listing.create(listingData, function (err, user) {
+    if (err) { 
+      return console.log(err) 
+    } else {
+      console.log(listingData)
+      return res.redirect('/homepage');
+    }
+  })
 });
 
 app.post('/bookings/add', function(req, res) {
