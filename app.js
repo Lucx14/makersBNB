@@ -98,7 +98,7 @@ app.post('/signUp', function (req, res) {
       console.log(err)
     } else {
       console.log(userData)
-      return res.redirect('/homepage');
+      return res.redirect('/login');
     }
   })
   // db.collection('users').insertOne(req.body, (err, result) => {
@@ -117,7 +117,8 @@ app.post('/logIn', function (req, res) {
       if (error || !user) {
           var err = new Error('Wrong email or password.');
           err.status = 401;
-          return next(err);
+          // return next(err);
+          return console.log(err)
       } else {
           req.session.userId = user._id;
           console.log(req.session.userId)
