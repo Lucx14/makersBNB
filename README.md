@@ -1,6 +1,6 @@
 ##GoPythonBnB
 
-###Dev team
+### Dev team
 
 [Alastair Edmonds](https://github.com/Alastair2D)
 [Aneel Marshall](https://github.com/marshall159)
@@ -8,9 +8,9 @@
 [Lucien Najev](https://github.com/Lucx14)
 
 
-As a team we have created this project in one week using technologies that were all brand new to us, we had no experience of Express, Node.js or MongoDB and so this was a good test of the teams ability to learn and implement new technologies very quickly. We followed a Test and behaviour driven Agile workflow, programming in pairs and holding regular stand ups and retros every day. 
+As a team we have created this project in one week using technologies that were all brand new to us, we had no experience of Express, Node.js or MongoDB and so this was a good test of the teams ability to learn and implement new technologies very quickly. We followed a Test and behaviour driven Agile workflow, programming in pairs and holding regular stand ups and retros every day.
 
-###GoPythonBNB uses the following **technologies**:
+### GoPythonBNB uses the following **technologies**:
 
 * Javascript
 * node.js
@@ -25,7 +25,7 @@ Start by cloning this repo. Make sure you have [NodeJs](https://nodejs.org/en/) 
 ```
 npm install
 ```
-Next, boot up the server with nodemon. The website will then be accessible on your browser at localhost:3000. 
+Next, boot up the server with nodemon. The website will then be accessible on your browser at localhost:3000.
 
 
 We created a web application that allows users to list spaces they have available, and to hire spaces for the night.
