@@ -102,7 +102,6 @@ MongoClient.connect(mLabDatabase, { useNewUrlParser: true }, (err, client) => {
 mongoose.connect(mLabDatabase, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true)
 
-
 //__________ R O U T E S __________
 // One-line equivalent syntax: (req, res) => res.send('Hello World!'))
 
@@ -133,6 +132,18 @@ app.get('/homepage', function (req, res) {
       sessionData: sessionData
     });
   });
+});
+
+app.get('/logout', function(req, res, next) {
+  if (req.session) {
+    req.session.destroy(function(err) {
+      if(err) {
+        return next(err);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }
 });
 
 app.post('/signUp', function (req, res) {
@@ -196,8 +207,7 @@ app.post('/bookings/add', function(req, res) {
       fromDate: req.body.fromDate,
       toDate: req.body.toDate,
       numberOfGuests: req.body.numberOfGuests,
-      guestId: loggedInUser,
-      // listingId:
+      guestId: loggedInUser
     }
   }
   Booking.create(bookingData, function (err, user) {
