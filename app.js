@@ -22,11 +22,21 @@ var ListingSchema = new mongoose.Schema({
   hostId: String
 });
 
+var BookingSchema = new mongoose.Schema({
+  fromDate: String, 
+  toDate: String, 
+  numberOfGuests: Number,
+  listingId: String, 
+  guestId: String
+});
+
 var User = mongoose.model('User', UserSchema);
 var Listing = mongoose.model('Listing', ListingSchema);
+var Booking = mongoose.model('Booking', BookingSchema);
 
 module.exports = User;
 module.exports = Listing;
+module.exports = Booking;
 
 UserSchema.pre('save', function (next) {
   var user = this;
@@ -37,7 +47,7 @@ UserSchema.pre('save', function (next) {
   })
 });
 
-//_______Authenticate input against database_______
+//_______Authentication - checks that user is _______
 UserSchema.statics.authenticate = function (email, password, callback) {
   User.findOne({ email: email })
     .exec(function (err, user) {
@@ -108,7 +118,6 @@ app.post('/signUp', function (req, res) {
   }   
   User.create(userData, function (err, user) {
     if (err) { return console.log(err) }
-    console.log(userData)
     return res.redirect('/login');
   });
 });
@@ -127,35 +136,44 @@ app.post('/logIn', function (req, res) {
       }
     })
   }
-  console.log(req.session.userId)
 });
 
 app.post('/homepage/add', function(req, res) {
-  var userId = req.session.userId;
-  console.log('user id' + userId)
+  var loggedInUser = req.session.userId;
   if (req.body.name && req.body.description && req.body.price ) {
     var listingData = {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
-      hostId: userId
+      hostId: loggedInUser 
     }
-    console.log('LISTING DATA')
-    console.log(listingData)
   }   
   Listing.create(listingData, function (err, user) {
     if (err) { 
       return console.log(err) 
     } else {
-      console.log(listingData)
       return res.redirect('/homepage');
     }
   })
 });
 
 app.post('/bookings/add', function(req, res) {
-  db.collection('bookings').insertOne(req.body, (err, result) => {
-    if (err) return console.log(err)
-    res.redirect('/homepage');
-  });
+  var loggedInUser = req.session.userId;
+  if (req.body.fromDate && req.body.toDate && req.body.numberOfGuests ) {
+    var bookingData = {
+      fromDate: req.body.fromDate, 
+      toDate: req.body.toDate, 
+      numberOfGuests: req.body.numberOfGuests,
+      guestId: loggedInUser,
+      // listingId: 
+    }
+  }   
+  Booking.create(bookingData, function (err, user) {
+    if (err) { 
+      return console.log(err) 
+    } else {
+      return res.redirect('/homepage');
+    }
+  })
 });
+
