@@ -26,10 +26,10 @@ var ListingSchema = new mongoose.Schema({
 });
 
 var BookingSchema = new mongoose.Schema({
-  fromDate: String, 
-  toDate: String, 
+  fromDate: String,
+  toDate: String,
   numberOfGuests: Number,
-  listingId: String, 
+  listingId: String,
   guestId: String
 });
 
@@ -95,7 +95,9 @@ MongoClient.connect(mLabDatabase, { useNewUrlParser: true }, (err, client) => {
 })
 
 // ____ Establish Mongoose database connection ____
-mongoose.connect(mLabDatabase);
+mongoose.connect(mLabDatabase, { useNewUrlParser: true });
+mongoose.set('useCreateIndex', true)
+
 
 //__________ R O U T E S __________
 // One-line equivalent syntax: (req, res) => res.send('Hello World!'))
@@ -118,7 +120,7 @@ app.post('/signUp', function (req, res) {
       email: req.body.email,
       password: req.body.password
     }
-  }   
+  }
   User.create(userData, function (err, user) {
     if (err) { return console.log(err) }
     return res.redirect('/login');
@@ -148,12 +150,12 @@ app.post('/homepage/add', function(req, res) {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
-      hostId: loggedInUser 
+      hostId: loggedInUser
     }
-  }   
+  }
   Listing.create(listingData, function (err, user) {
-    if (err) { 
-      return console.log(err) 
+    if (err) {
+      return console.log(err)
     } else {
       return res.redirect('/homepage');
     }
@@ -164,19 +166,18 @@ app.post('/bookings/add', function(req, res) {
   var loggedInUser = req.session.userId;
   if (req.body.fromDate && req.body.toDate && req.body.numberOfGuests ) {
     var bookingData = {
-      fromDate: req.body.fromDate, 
-      toDate: req.body.toDate, 
+      fromDate: req.body.fromDate,
+      toDate: req.body.toDate,
       numberOfGuests: req.body.numberOfGuests,
       guestId: loggedInUser,
-      // listingId: 
+      // listingId:
     }
-  }   
+  }
   Booking.create(bookingData, function (err, user) {
-    if (err) { 
-      return console.log(err) 
+    if (err) {
+      return console.log(err)
     } else {
       return res.redirect('/homepage');
     }
   })
 });
-
