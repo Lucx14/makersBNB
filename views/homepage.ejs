@@ -11,7 +11,16 @@
 
     <h1>Homepage</h1>
 
+
+      <h5>Welcome <%= sessionData.email %>!, Please make a booking below</h5>
+      <p>You will receive an email if your booking request was successful.</p>
+
+
+
+
+
     <a href='/createListing'><button>Add listing</button></a>
+    <a href="/viewRequests"><button>View Requests</button></a>
 
     <ul>
       <% properties.forEach(function(property) { %>
@@ -22,4 +31,3 @@
 
   </body>
 </html>
-
