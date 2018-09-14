@@ -30,7 +30,8 @@ var BookingSchema = new mongoose.Schema({
   toDate: String,
   numberOfGuests: Number,
   listingId: String,
-  guestId: String
+  guestId: String,
+  listingId: String
 });
 
 var User = mongoose.model('User', UserSchema);
@@ -117,17 +118,14 @@ app.get('/', function(req, res) {
 
 app.get('/signup', (req, res) => res.render('signUp'));
 app.get('/logIn', (req, res) => res.render('loginForm'));
-app.get('/makeBooking', (req, res) => res.render('makeBooking'));
+
 app.get('/createListing', (req, res) => res.render('createListing'));
 
 app.get('/homepage', function (req, res) {
   db.collection('properties').find().toArray((err, result) => {
 
     if (err) return console.log(err)
-    console.log(sessionData);
-    console.log(sessionData.email);
-    // here ive parsed in sessionData variable into the res render and i think that gives the view access to the variables!
-    res.render('homepage', {
+      res.render('homepage', {
       properties: result,
       sessionData: sessionData
     });
@@ -202,12 +200,15 @@ app.post('/homepage/add', function(req, res) {
 
 app.post('/bookings/add', function(req, res) {
   var loggedInUser = req.session.userId;
+  var listingId = req.session.listingId;
   if (req.body.fromDate && req.body.toDate && req.body.numberOfGuests ) {
+
     var bookingData = {
       fromDate: req.body.fromDate,
       toDate: req.body.toDate,
       numberOfGuests: req.body.numberOfGuests,
-      guestId: loggedInUser
+      guestId: loggedInUser,
+      listingId: listingId
     }
   }
   Booking.create(bookingData, function (err, user) {
@@ -217,4 +218,26 @@ app.post('/bookings/add', function(req, res) {
       return res.redirect('/homepage');
     }
   })
+});
+
+
+app.get('/makeBooking/:thing', function(req, res) {
+  var listingId = req.params.thing;
+  sessionData = req.session;
+  sessionData.listingId = listingId;
+  res.render('makeBooking');
+});
+
+
+app.get('/viewRequests', function(req, res) {
+  db.collection('bookings').find().toArray((err, result) => {
+
+    if (err) return console.log(err)
+      console.log(result);
+      // console.log(sessionData);
+      res.render('viewRequests', {
+      bookings: result,
+      sessionData: sessionData
+    });
+  });
 });
