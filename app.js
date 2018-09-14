@@ -84,6 +84,10 @@ app.use(session({
   saveUninitialized: false
 }));
 
+
+
+
+
 // ____ Establish MongoDB connection ____
 var mLabDatabase = 'mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb'
 MongoClient.connect(mLabDatabase, { useNewUrlParser: true }, (err, client) => {
@@ -100,7 +104,17 @@ mongoose.set('useCreateIndex', true)
 
 //__________ R O U T E S __________
 // One-line equivalent syntax: (req, res) => res.send('Hello World!'))
-app.get('/', (req, res) => res.render('index'));
+
+// here ive set what looks like a global variable! hope thats not bad practice!!
+var sessionData;
+app.get('/', function(req, res) {
+  sessionData = req.session;
+  res.render('index')
+});
+
+
+
+
 app.get('/signup', (req, res) => res.render('signUp'));
 app.get('/logIn', (req, res) => res.render('loginForm'));
 app.get('/makeBooking', (req, res) => res.render('makeBooking'));
@@ -108,8 +122,15 @@ app.get('/createListing', (req, res) => res.render('createListing'));
 
 app.get('/homepage', function (req, res) {
   db.collection('properties').find().toArray((err, result) => {
+
     if (err) return console.log(err)
-    res.render('homepage', {properties: result});
+    console.log(sessionData);
+    console.log(sessionData.email);
+    // here ive parsed in sessionData variable into the res render and i think that gives the view access to the variables!
+    res.render('homepage', {
+      properties: result,
+      sessionData: sessionData
+    });
   });
 });
 
@@ -138,6 +159,8 @@ app.post('/signUp', function (req, res) {
   });
 });
 
+
+
 app.post('/logIn', function (req, res) {
   if (req.body.email && req.body.password) {
     UserSchema.statics.authenticate(req.body.email, req.body.password, function (error, user) {
@@ -146,8 +169,12 @@ app.post('/logIn', function (req, res) {
         err.status = 401;
         return console.log(err)
       } else {
-        var sessionData = req.session;
+
+        // this sets the global variable sessionData to req.session and sets email and user id
+        sessionData = req.session;
+        sessionData.email=req.body.email;
         sessionData.userId = user._id;
+        console.log(sessionData);
         return res.redirect('/homepage');
       }
     })
