@@ -1,7 +1,94 @@
-body {
-  /* background-color: red; */
+* {margin: 0; padding: 0;}
+     
+ul {
+  list-style-type: none;
+  width: auto;
+}
+  
+h1 {
+  font-family: Montserrat, sans-serif;
+  font-weight: 900;
+}
+  
+h3 {
+  font-family: Montserrat;
 }
 
-container {
-  text-align: center;
+.price {
+  font-family: Montserrat;
+  float: right;
+  display: inline;
+}    
+
+.property {
+  font-family: Montserrat;
+  font-weight: 700;
+  display: inline;
+  font-size: 22px;
 }
+  
+li img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+  
+li p {
+  font-family: Roboto, sans-serif;
+  font-size: 0.95em;
+  font-weight: 100;
+  line-height: 1em;
+}
+  
+li {
+  padding: 7px; 
+  overflow: auto;
+}
+  
+li:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+#nav {
+	float: left;
+	margin: 0 0 1em 0;
+	padding: 0;
+  background-color: #333;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+#nav  a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 10px 12px;
+  text-decoration: none;
+  font-size: 17px;
+}
+#nav a:hover {
+  background-color: #ddd;
+    color: black; }
+
+.main {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 40px;
+  margin-top: 30px;
+  height: 1500px; /* Used in this example to enable scrolling */
+}
+
+#inline{
+  width:100%;
+  height:auto;
+  display:flex;
+}
+
+.one,.two{
+  width:50%
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+

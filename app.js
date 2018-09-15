@@ -85,10 +85,6 @@ app.use(session({
   saveUninitialized: false
 }));
 
-
-
-
-
 // ____ Establish MongoDB connection ____
 var mLabDatabase = 'mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb'
 MongoClient.connect(mLabDatabase, { useNewUrlParser: true }, (err, client) => {
@@ -113,10 +109,7 @@ app.get('/', function(req, res) {
   res.render('index')
 });
 
-
-
-
-app.get('/signup', (req, res) => res.render('signUp'));
+app.get('/signup', (req, res) => res.render('test'));
 app.get('/logIn', (req, res) => res.render('loginForm'));
 
 app.get('/createListing', (req, res) => res.render('createListing'));
@@ -156,8 +149,6 @@ app.post('/signUp', function (req, res) {
     return res.redirect('/login');
   });
 });
-
-
 
 app.post('/logIn', function (req, res) {
   if (req.body.email && req.body.password) {
@@ -220,14 +211,12 @@ app.post('/bookings/add', function(req, res) {
   })
 });
 
-
 app.get('/makeBooking/:thing', function(req, res) {
   var listingId = req.params.thing;
   sessionData = req.session;
   sessionData.listingId = listingId;
   res.render('makeBooking');
 });
-
 
 app.get('/viewRequests', function(req, res) {
   db.collection('bookings').find().toArray((err, result) => {

@@ -4,33 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat' >
+    <link rel="stylesheet" href="/styles.css">
     <title>MBnb: Homepage</title>
   </head>
 
   <body>
+    <div id='nav'>
+        <a href="/logout" style='float:right'>Log out</a>
+        <a href="/homepage">Home</a>
+        <!-- <a href='/viewRequests'>View Requests</a> -->
+    </div>
 
-    <h1>Homepage</h1>
+    <div class='main'>
+      <h1>Welcome <%= sessionData.email %></h1>
+      <h5>Please make a booking below</h5>
+      <div id="inline">
 
+      <div class="one">
+        <p>You will receive an email if your booking request was successful.</p>
+          </div>
+            <div class="two">
+              <a href='/createListing'><button class="btn btn-dark" style='display: inline-block; float:right;'>&nbsp;&nbsp;Add listing&nbsp;&nbsp;</button></a>
+            </div>
+      </div><br>
 
-      <h5>Welcome <%= sessionData.email %>!, Please make a booking below</h5>
-      <p>You will receive an email if your booking request was successful.</p>
-
-
-
-
-
-    <a href='/createListing'><button>Add listing</button></a>
-    <a href='/viewRequests'><button>View Requests</button></a>
-
-    <a href='/logout'><button>Log out</button></a>
-
-
-    <ul>
-      <% properties.forEach(function(property) { %>
-        <li><%= property.name %>, <%= property.description %>: <%= property.price %></li>
-        <a href="/makeBooking/<%= property._id %>"><button>Book</button></a>
-      <% }) %>
-    </ul>
-
+      <div>
+        <ul>
+          <% properties.forEach(function(property) { %>
+          <div style='position: relative;'>          
+            <li>
+              <img src="https://www.fujifilmreal3d.com/wp-content/uploads/2018/07/design3.jpg" style="width:242px; height:150px;"/>
+              <div style='display: inline;'>
+              <div class='property'><%= property.name %></div>
+                <div class='price'><%= property.price %></div>
+                  <p><%= property.description %></p>
+                </div>
+              <a href="/makeBooking/<%= property._id %>"><button class="btn btn-dark"style='position: absolute; bottom:7px; right:7px;'>Book</button></a>
+            </li>
+              </div>
+          <% }) %>
+        </ul>
+      </div>
+      
+    </div>
+    
   </body>
 </html>
+
