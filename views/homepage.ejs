@@ -13,21 +13,21 @@
 
   <body>
     <div id='nav'>
-        <a href="/logout" style='float:right'>Log out</a>
-        <a href="/homepage">Home</a>
+        <a href="/logout" style='float:right; font-weight:100; font-size:14px;'>Log out</a>
+        <a href="/homepage" style='letter-spacing: 7px;'>MAKERS</a>
         <!-- <a href='/viewRequests'>View Requests</a> -->
     </div>
 
     <div class='main'>
-      <h1>Welcome <%= sessionData.email %></h1>
-      <h5>Please make a booking below</h5>
+      <h1>Find your perfect stay.</h1>
+      <h5>Welcome <%= sessionData.email %>!&nbsp;&nbsp; Book one of the wonderful listings below.</h5>
       <div id="inline">
 
       <div class="one">
-        <p>You will receive an email if your booking request was successful.</p>
+        <p>Prefer hosting? Add a new listing by clicking the button on the right.</p>
           </div>
             <div class="two">
-              <a href='/createListing'><button class="btn btn-dark" style='display: inline-block; float:right;'>&nbsp;&nbsp;Add listing&nbsp;&nbsp;</button></a>
+              <a href='/createListing'><button class="btn btn-success" style='display: inline-block; float:right;'>&nbsp;&nbsp;Add listing&nbsp;&nbsp;</button></a>
             </div>
       </div><br>
 
@@ -42,13 +42,13 @@
                 <div class='price'><%= property.price %></div>
                   <p><%= property.description %></p>
                 </div>
-              <a href="/makeBooking/<%= property._id %>"><button class="btn btn-dark"style='position: absolute; bottom:7px; right:7px;'>Book</button></a>
+              <a href="/makeBooking/<%= property._id %>"><button class="btn btn-light"style='position: absolute; bottom:7px; right:7px;'>Book</button></a>
             </li>
               </div>
           <% }) %>
         </ul>
       </div>
-      
+
     </div>
     
   </body>

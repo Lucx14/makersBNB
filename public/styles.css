@@ -1,5 +1,9 @@
 * {margin: 0; padding: 0;}
-     
+.landing { 
+  background-image: url("https://images.unsplash.com/photo-1536629445800-4679cfd71c3a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7bf14bdbda5c542f57965f9bb0d34ab7&auto=format&fit=crop&w=1790&q=80");
+  background-size: cover;
+
+}
 ul {
   list-style-type: none;
   width: auto;
@@ -14,6 +18,17 @@ h3 {
   font-family: Montserrat;
 }
 
+h5 {
+  font-weight: 600;
+}
+
+.logo {
+  float:right;
+  font-family: montserrat;
+  letter-spacing: 13px;
+  font-weight: 100;
+}
+
 .price {
   font-family: Montserrat;
   float: right;
@@ -26,6 +41,21 @@ h3 {
   display: inline;
   font-size: 22px;
 }
+
+.container {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0,0,0,0)); /* Standard syntax (must be last) */
+  position:absolute;
+  color:white;
+  left:0; right:0;
+  top:0;
+  margin:auto;
+  padding: 50px;
+  padding-bottom: 20px;
+  max-width:100%;
+  max-height:40%;
+  overflow:auto;
+}
+
   
 li img {
   float: left;
@@ -40,7 +70,7 @@ li p {
 }
   
 li {
-  padding: 7px; 
+  padding: 8px; 
   overflow: auto;
 }
   
@@ -58,13 +88,14 @@ li:hover {
   top: 0;
   width: 100%;
 }
-#nav  a {
+#nav a {
   float: left;
   color: #f2f2f2;
   text-align: center;
   padding: 10px 12px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 18px;
+  font-weight: 100;
 }
 #nav a:hover {
   background-color: #ddd;
@@ -91,4 +122,3 @@ li:hover {
 ::-webkit-scrollbar { 
     display: none; 
 }
-

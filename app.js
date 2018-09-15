@@ -109,7 +109,7 @@ app.get('/', function(req, res) {
   res.render('index')
 });
 
-app.get('/signup', (req, res) => res.render('test'));
+app.get('/signup', (req, res) => res.render('signUp'));
 app.get('/logIn', (req, res) => res.render('loginForm'));
 
 app.get('/createListing', (req, res) => res.render('createListing'));
