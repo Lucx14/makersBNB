@@ -2,7 +2,6 @@
 .landing { 
   background-image: url("https://images.unsplash.com/photo-1536629445800-4679cfd71c3a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7bf14bdbda5c542f57965f9bb0d34ab7&auto=format&fit=crop&w=1790&q=80");
   background-size: cover;
-
 }
 ul {
   list-style-type: none;

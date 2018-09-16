@@ -4,25 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat' >
+    <link rel="stylesheet" href="/styles.css">
     <title>MBnb: Make Booking</title>
   </head>
 
   <body>
-    <h1>Hello from make booking (ejs rendered view!)</h1>
-    <h2>Booking Form</h2>
-
-    <form action="/bookings/add" method="POST">
-      <label>From Date</label><br>
-      <input type="text" name="fromDate">
-      <br>
-      <label>To Date</label><br>
-      <input type="text" name="toDate">
-      <br>
-      <label>Number of Guests</label><br>
-      <input type="text" name="numberOfGuests">
-      <br><br>
-      <input type="submit" value="Submit">
-    </form>
+      <div id='nav'>
+          <a href="/logout" style='float:right; font-weight:100; font-size:14px;'>Log out</a>
+          <a href="/homepage" style='letter-spacing: 7px;'>MAKERS</a>
+          <!-- <a href='/viewRequests'>View Requests</a> -->
+      </div>
+      <div class='main'>
+          <h1>Make a booking</h1>
+          <h2>Fill in the details below</h2>
+      
+          <form action="/bookings/add" method="POST">
+            <label>From Date</label><br>
+            <input type="text" name="fromDate">
+            <br>
+            <label>To Date</label><br>
+            <input type="text" name="toDate">
+            <br>
+            <label>Number of Guests</label><br>
+            <input type="text" name="numberOfGuests">
+            <br><br>
+            <input type="submit" class='btn btn-success' value="Submit">
+          </form>
+      </div>
+   
 
   </body>
 </html>

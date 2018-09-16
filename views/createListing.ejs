@@ -5,21 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MBnB: Create Listing</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat' >
+    <link rel="stylesheet" href="/styles.css">
   </head>
 
   <body>
-    <h1>Create a new listing</h1>
-    <h2>Add a property</h2>
-
-    <form action="/homepage/add" method="POST">
-      <label>Name</label><br>
-      <input type="text" name="name"><br>
-      <label>Desciption</label><br>
-      <input type="text" name="description"><br>
-      <label>Price</label><br>
-      <input type="text" name="price"><br><br>
-      <input type="submit" value="Submit">
-    </form>
-    
+    <div id='nav'>
+        <a href="/logout" style='float:right; font-weight:100; font-size:14px;'>Log out</a>
+        <a href="/homepage" style='letter-spacing: 7px;'>MAKERS</a>
+        <!-- <a href='/viewRequests'>View Requests</a> -->
+    </div>
+    <div class='main'>
+      <h1>Create a new listing</h1>
+      <h2>Fill in the details below</h2>
+      <form action="/homepage/add" method="POST">
+        <label>Name</label><br>
+        <input type="text" name="name"><br>
+        <label>Desciption</label><br>
+        <input type="text" name="description"><br>
+        <label>Price</label><br>
+        <input type="text" name="price"><br><br>
+        <input type="submit" class="btn btn-success" value="Submit">
+      </form>
+    </div>
   </body>
 </html>
