@@ -29,20 +29,21 @@
             <div class="two">
               <a href='/createListing'><button class="btn btn-primary" style='display: inline-block; float:right;'>&nbsp;&nbsp;Add listing&nbsp;&nbsp;</button></a>
             </div>
-      </div><br>
+      </div>
+      <hr size=2>
 
       <div>
         <ul>
-          <% properties.forEach(function(property) { %>
+          <% listings.forEach(function(listing) { %>
           <div style='position: relative;'>          
             <li>
-              <img src="https://www.fujifilmreal3d.com/wp-content/uploads/2018/07/design3.jpg" style="width:242px; height:150px;"/>
+              <img src=<%= listing.imageURL %> style="width:242px; height:150px;"/>
               <div style='display: inline;'>
-              <div class='property'><%= property.name %></div>
-                <div class='price'><%= property.price %></div>
-                  <p><%= property.description %></p>
+              <div class='property'><%= listing.name %></div>
+                <div class='price'>£<%= listing.price %> /night</div>
+                  <p><%= listing.description %></p>
                 </div>
-              <a href="/makeBooking/<%= property._id %>"><button class="btn btn-light"style='position: absolute; bottom:7px; right:7px;'>Book</button></a>
+              <a href="/makeBooking/<%= listing._id %>"><button class="btn btn-light"style='position: absolute; bottom:7px; right:7px;'>Book</button></a>
             </li>
               </div>
           <% }) %>
@@ -50,7 +51,7 @@
       </div>
 
     </div>
-    
+
   </body>
 </html>
 

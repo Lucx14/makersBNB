@@ -22,6 +22,7 @@ var ListingSchema = new mongoose.Schema({
   name: { type: String, required: true},
   description: { type: String, required: true },
   price: { type: Number, required: true },
+  imageURL: String,
   hostId: String
 });
 
@@ -115,11 +116,11 @@ app.get('/logIn', (req, res) => res.render('loginForm'));
 app.get('/createListing', (req, res) => res.render('createListing'));
 
 app.get('/homepage', function (req, res) {
-  db.collection('properties').find().toArray((err, result) => {
+  db.collection('listings').find().toArray((err, result) => {
 
     if (err) return console.log(err)
       res.render('homepage', {
-      properties: result,
+      listings: result,
       sessionData: sessionData
     });
   });
@@ -177,6 +178,7 @@ app.post('/homepage/add', function(req, res) {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
+      imageURL: req.body.imageURL,
       hostId: loggedInUser
     }
   }
