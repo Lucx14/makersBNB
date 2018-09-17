@@ -1,7 +1,123 @@
-body {
-  /* background-color: red; */
+* {margin: 0; padding: 0;}
+.landing { 
+  background-image: url("https://images.unsplash.com/photo-1536629445800-4679cfd71c3a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7bf14bdbda5c542f57965f9bb0d34ab7&auto=format&fit=crop&w=1790&q=80");
+  background-size: cover;
+}
+ul {
+  list-style-type: none;
+  width: auto;
+}
+  
+h1 {
+  font-family: Montserrat, sans-serif;
+  font-weight: 900;
+}
+  
+h3 {
+  font-family: Montserrat;
 }
 
-container {
+h5 {
+  font-weight: 600;
+}
+
+.logo {
+  float:right;
+  font-family: montserrat;
+  letter-spacing: 13px;
+  font-weight: 100;
+}
+
+.price {
+  font-family: Montserrat;
+  float: right;
+  display: inline;
+}    
+
+.property {
+  font-family: Montserrat;
+  font-weight: 700;
+  display: inline;
+  font-size: 22px;
+}
+
+.container {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0,0,0,0)); /* Standard syntax (must be last) */
+  position:absolute;
+  color:white;
+  left:0; right:0;
+  top:0;
+  margin:auto;
+  padding: 50px;
+  padding-bottom: 20px;
+  max-width:100%;
+  max-height:40%;
+  overflow:auto;
+}
+
+  
+li img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+  
+li p {
+  font-family: Roboto, sans-serif;
+  font-size: 0.95em;
+  font-weight: 100;
+  line-height: 1em;
+}
+  
+li {
+  padding: 8px; 
+  overflow: auto;
+}
+  
+li:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+#nav {
+	float: left;
+	margin: 0 0 1em 0;
+	padding: 0;
+  background-color: #333;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+#nav a {
+  float: left;
+  color: #f2f2f2;
   text-align: center;
+  padding: 10px 12px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 100;
+}
+#nav a:hover {
+  background-color: #ddd;
+    color: black; }
+
+.main {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 40px;
+  margin-top: 30px;
+  height: 1500px; /* Used in this example to enable scrolling */
+}
+
+#inline{
+  width:100%;
+  height:auto;
+  display:flex;
+}
+
+.one,.two{
+  width:50%
+}
+
+::-webkit-scrollbar { 
+    display: none; 
 }

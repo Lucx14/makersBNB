@@ -22,6 +22,7 @@ var ListingSchema = new mongoose.Schema({
   name: { type: String, required: true},
   description: { type: String, required: true },
   price: { type: Number, required: true },
+  imageURL: String,
   hostId: String
 });
 
@@ -85,10 +86,6 @@ app.use(session({
   saveUninitialized: false
 }));
 
-
-
-
-
 // ____ Establish MongoDB connection ____
 var mLabDatabase = 'mongodb://makers1:makers1@ds251332.mlab.com:51332/makersbnb'
 MongoClient.connect(mLabDatabase, { useNewUrlParser: true }, (err, client) => {
@@ -113,20 +110,17 @@ app.get('/', function(req, res) {
   res.render('index')
 });
 
-
-
-
 app.get('/signup', (req, res) => res.render('signUp'));
 app.get('/logIn', (req, res) => res.render('loginForm'));
 
 app.get('/createListing', (req, res) => res.render('createListing'));
 
 app.get('/homepage', function (req, res) {
-  db.collection('properties').find().toArray((err, result) => {
+  db.collection('listings').find().toArray((err, result) => {
 
     if (err) return console.log(err)
       res.render('homepage', {
-      properties: result,
+      listings: result,
       sessionData: sessionData
     });
   });
@@ -157,8 +151,6 @@ app.post('/signUp', function (req, res) {
   });
 });
 
-
-
 app.post('/logIn', function (req, res) {
   if (req.body.email && req.body.password) {
     UserSchema.statics.authenticate(req.body.email, req.body.password, function (error, user) {
@@ -186,6 +178,7 @@ app.post('/homepage/add', function(req, res) {
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
+      imageURL: req.body.imageURL,
       hostId: loggedInUser
     }
   }
@@ -220,14 +213,12 @@ app.post('/bookings/add', function(req, res) {
   })
 });
 
-
 app.get('/makeBooking/:thing', function(req, res) {
   var listingId = req.params.thing;
   sessionData = req.session;
   sessionData.listingId = listingId;
   res.render('makeBooking');
 });
-
 
 app.get('/viewRequests', function(req, res) {
   db.collection('bookings').find().toArray((err, result) => {

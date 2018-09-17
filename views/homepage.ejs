@@ -4,33 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat' >
+    <link rel="stylesheet" href="/styles.css">
     <title>MBnb: Homepage</title>
   </head>
 
   <body>
+    <div id='nav'>
+        <a href="/logout" style='float:right; font-weight:100; font-size:14px;'>Log out</a>
+        <a href="/homepage" style='letter-spacing: 7px;'>MAKERS</a>
+        <!-- <a href='/viewRequests'>View Requests</a> -->
+    </div>
 
-    <h1>Homepage</h1>
+    <div class='main'>
+      <h1>Find your perfect stay</h1>
+      <h5>Welcome <%= sessionData.email %>!&nbsp;&nbsp; Book one of the wonderful listings below.</h5>
+      <div id="inline">
 
+      <div class="one">
+        <p>Prefer hosting? Add a new listing by clicking the button on the right.</p>
+          </div>
+            <div class="two">
+              <a href='/createListing'><button class="btn btn-primary" style='display: inline-block; float:right;'>&nbsp;&nbsp;Add listing&nbsp;&nbsp;</button></a>
+            </div>
+      </div>
+      <hr size=2>
 
-      <h5>Welcome <%= sessionData.email %>!, Please make a booking below</h5>
-      <p>You will receive an email if your booking request was successful.</p>
+      <div>
+        <ul>
+          <% listings.forEach(function(listing) { %>
+          <div style='position: relative;'>          
+            <li>
+              <img src=<%= listing.imageURL %> style="width:242px; height:150px;"/>
+              <div style='display: inline;'>
+              <div class='property'><%= listing.name %></div>
+                <div class='price'>£<%= listing.price %> /night</div>
+                  <p><%= listing.description %></p>
+                </div>
+              <a href="/makeBooking/<%= listing._id %>"><button class="btn btn-light"style='position: absolute; bottom:7px; right:7px;'>Book</button></a>
+            </li>
+              </div>
+          <% }) %>
+        </ul>
+      </div>
 
-
-
-
-
-    <a href='/createListing'><button>Add listing</button></a>
-    <a href='/viewRequests'><button>View Requests</button></a>
-
-    <a href='/logout'><button>Log out</button></a>
-
-
-    <ul>
-      <% properties.forEach(function(property) { %>
-        <li><%= property.name %>, <%= property.description %>: <%= property.price %></li>
-        <a href="/makeBooking/<%= property._id %>"><button>Book</button></a>
-      <% }) %>
-    </ul>
+    </div>
 
   </body>
 </html>
+
