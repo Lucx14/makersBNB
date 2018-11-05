@@ -62,3 +62,5 @@ I can receive multiple booking requests for the same date
 from different users until I confirm a booking.
 
 ```
+
+...
